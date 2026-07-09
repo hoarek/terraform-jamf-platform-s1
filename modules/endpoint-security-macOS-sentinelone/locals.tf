@@ -27,7 +27,11 @@ resource "terraform_data" "prepare_pkg_from_url" {
       PKG_INFO=$(python3 '${path.module}/../../tools/get_pkg_version.py' "$TMP")
       PKG_NAME=$(echo "$PKG_INFO" | sed -n '1p')
       PKG_VERSION=$(echo "$PKG_INFO" | sed -n '2p')
-      DEST="$PKG_NAME-$PKG_VERSION.pkg"
+      if [[ -n "$PKG_VERSION" ]]; then
+        DEST="$PKG_NAME-$PKG_VERSION.pkg"
+      else
+        DEST=$(basename '${var.sentinelone_pkg_url}')
+      fi
       mv "$TMP" '${path.module}/support_files/'"$DEST"
       printf '%s' "$DEST" > '${path.module}/support_files/.pkg_name'
     EOT
@@ -46,7 +50,11 @@ resource "terraform_data" "prepare_pkg_from_path" {
       PKG_INFO=$(python3 '${path.module}/../../tools/get_pkg_version.py' '${var.sentinelone_pkg_path}')
       PKG_NAME=$(echo "$PKG_INFO" | sed -n '1p')
       PKG_VERSION=$(echo "$PKG_INFO" | sed -n '2p')
-      DEST="$PKG_NAME-$PKG_VERSION.pkg"
+      if [[ -n "$PKG_VERSION" ]]; then
+        DEST="$PKG_NAME-$PKG_VERSION.pkg"
+      else
+        DEST=$(basename '${var.sentinelone_pkg_path}')
+      fi
       cp '${var.sentinelone_pkg_path}' '${path.module}/support_files/'"$DEST"
       printf '%s' "$DEST" > '${path.module}/support_files/.pkg_name'
     EOT

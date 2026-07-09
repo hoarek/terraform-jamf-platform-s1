@@ -12,7 +12,7 @@
 			<key>PayloadIdentifier</key>
 			<string>236FFBB3-159D-4A5F-B146-AAA7BBA11FF0</string>
 			<key>PayloadOrganization</key>
-			<string>Your Company</string>
+			<string>Sentinel Labs, Inc.</string>
 			<key>PayloadType</key>
 			<string>com.apple.TCC.configuration-profile-policy</string>
 			<key>PayloadUUID</key>

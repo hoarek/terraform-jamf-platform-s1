@@ -133,8 +133,9 @@ licenseFalconSensor()
     then
         echo "WARNING: Falcon Sensor not installed, exiting..."
         returncode=0
+        return
     fi
-    
+
     /Applications/Falcon.app/Contents/Resources/falconctl license "${ccid}"
     returncode=$?
     if [[ ${returncode} -ne 0 ]]
